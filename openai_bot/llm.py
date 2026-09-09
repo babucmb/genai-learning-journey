@@ -1,3 +1,4 @@
+# From openai model Request
 from openai import OpenAI
 from config import OPENAI_API_KEY, MODEL_NAME
 
@@ -12,6 +13,6 @@ def ask_openai(user_text: str, system_prompt: str | None = None) -> str:
     response = client.chat.completions.create(
         model=MODEL_NAME,
         messages=messages,
-        temperature=0.7,
+        temperature=0.7,  # Arrange the temp based on the models
     )
     return response.choices[0].message.content
