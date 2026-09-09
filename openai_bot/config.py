@@ -1,3 +1,4 @@
+# Setup of API and Telegram tokens
 import os
 from dotenv import load_dotenv
 
