@@ -1,3 +1,4 @@
+# Bot Code
 from aiogram import Dispatcher, F, Router
 from aiogram.filters import CommandStart
 from aiogram.types import Message
@@ -9,7 +10,7 @@ router = Router()
 
 @router.message(CommandStart())
 async def start_command(message: Message) -> None:
-    await message.answer("Hello! Send me a message and I will ask OpenAI.")
+    await message.answer("Hello! Send me a message and I will assist with you.")
 
 
 @router.message(F.text)
