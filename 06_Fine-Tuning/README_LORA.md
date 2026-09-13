@@ -1,4 +1,5 @@
-# LoRA Fine-Tuning
+# LoRA Fine-Tuning 
+# A Base Model
 
 In this experiment, I learned how to fine-tune an open-source language model using **LoRA (Low-Rank Adaptation)** with a small instruction dataset.
 
