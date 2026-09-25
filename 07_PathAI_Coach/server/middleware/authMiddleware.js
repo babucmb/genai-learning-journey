@@ -1,3 +1,4 @@
+/** Auth Middlerware**/
 const { admin } = require('../firebaseAdmin');
 
 /**
