@@ -1,7 +1,7 @@
-# Backend Security unit testing
+//Backend Security unit testing
 package com.example
 
-import com.example.data.remote.BackendConfig
+import com.example.data.remote.BackendConfig 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
