@@ -1,3 +1,4 @@
+// Fire base connection
 const admin = require('firebase-admin');
 require('dotenv').config();
 
