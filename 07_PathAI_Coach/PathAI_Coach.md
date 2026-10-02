@@ -1,4 +1,4 @@
-# PathAI Coach
+# PathAI Coach for Students
 
 > An AI-powered learning companion exploring Generative AI, AI agents, adaptive learning, career guidance, and modern Android application development.
 
