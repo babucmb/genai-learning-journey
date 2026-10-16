@@ -1,0 +1,7 @@
+{
+  "name": "PathAI Coach",
+  "description": "Personal AI career OS featuring an autonomous multi-agent brain, live Job Search Agent, daily 9:00 AM job alerts for internships, freshers, apprentices, dynamic roadmaps, mock interviews, and resume tailoring.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
