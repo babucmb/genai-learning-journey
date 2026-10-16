@@ -1,40 +1,20 @@
 {
   "project_info": {
-    "project_number": "326300615474",
-    "project_id": "pathai-coach",
-    "storage_bucket": "pathai-coach.firebasestorage.app"
+    "project_number": "YOUR_PROJECT_NUMBER",
+    "project_id": "YOUR_FIREBASE_PROJECT_ID",
+    "storage_bucket": "YOUR_FIREBASE_STORAGE_BUCKET"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:326300615474:android:3696e804b2f655e1500d2b",
+        "mobilesdk_app_id": "YOUR_ANDROID_APP_ID",
         "android_client_info": {
-          "package_name": "pathaicoach.com"
+          "package_name": "YOUR_ANDROID_PACKAGE_NAME"
         }
       },
-      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCPmzT-YIZbUx6xGzE4eXMKooEMDeCZ1Ps"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:326300615474:android:3696e804b2f655e1500d2b",
-        "android_client_info": {
-          "package_name": "com.aistudio.pathaicoach.vqzpx"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCPmzT-YIZbUx6xGzE4eXMKooEMDeCZ1Ps"
+          "current_key": "YOUR_API_KEY"
         }
       ],
       "services": {
