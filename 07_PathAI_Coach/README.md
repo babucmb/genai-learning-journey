@@ -1,195 +1,215 @@
 # PathAI Coach 🚀
 
-> **Personal AI Career Operating System & Autonomous Career Accelerator**  
-> An intelligent mobile and cloud ecosystem featuring multi-agent AI career orchestration, live job discovery (internships, freshers, apprenticeships), scheduled 9:00 AM alerts, dynamic learning roadmaps, interactive mock interview coaching, and zero-trust backend isolation.
+> An AI-assisted learning and career companion for students and fresh graduates.
 
----
+## Overview
 
-## 🌟 Key Features
+PathAI Coach is an educational Android project exploring how Generative AI,
+specialized agents, and cloud-backed user data can support technical learning
+and career preparation.
 
-### 📱 Android Application (Jetpack Compose + Material 3)
-- **Today Dashboard**: Dynamic daily coaching routines, personalized daily goals, daily streak tracking, and active task progress.
-- **Autonomous Multi-Agent Brain**:
-  - **Orchestrator Agent**: Delegates user career queries across domain-specialized agents.
-  - **Curator & Roadmap Agent**: Generates custom milestone-based learning paths tailored to specific dream roles.
-  - **Interviewer Agent**: Delivers real-time simulated technical and behavioral mock interview sessions with immediate actionable feedback.
-  - **Verifier Agent**: Validates schema compliance, checks question bounds, and eliminates duplicate tasks.
-- **Live Job Search Hub**:
-  - Live filtering for internships, apprenticeships, and entry-level fresher roles.
-  - Location, work mode (Remote/Hybrid/Onsite), and technology stack filters.
-- **Skill Map & Competency Tracker**: Visual competency tracking to measure skill readiness against target industry profiles.
-- **Interactive Practice Arena**: Practice technical questions, system design prompts, and situational judgment scenarios.
-- **Notifications & Daily 9:00 AM Job Radar**: Push alert center delivering curated daily openings.
-- **Zero-Key Security Architecture**: No sensitive API keys or credentials stored on device; all AI and external calls route securely through the authenticated backend proxy.
+The idea is to connect structured learning, daily practice, portfolio projects,
+and entry-level job discovery in one application.
 
----
+I developed this project to gain hands-on experience with GenAI application
+architecture, agent orchestration, Firebase integration, and prompt-assisted
+development. It is an evolving prototype, not a production-ready career platform.
 
-### 🛡️ Secure Backend (`/server`)
-- **Node.js & Express REST API** with automated lifecycle hooks.
-- **Multi-Provider LLM Abstraction**:
-  - Google Gemini (`gemini-2.5-flash`) as primary fast inference provider.
-  - Hugging Face API fallback support.
-- **Firebase Admin & Firestore Integration**:
-  - Secure token verification via Bearer authentication (`Authorization: Bearer <token>`).
-  - Strict user data isolation enforcing UID derivation directly from verified tokens.
-- **Automated Cron Job**: Scheduled 9:00 AM (Asia/Kolkata) alert service (`node-cron`) for daily job scraping and notification delivery.
-- **Health Check Endpoint**: `GET /health` with real-time status and provider diagnostics.
-- **Container Ready**: Production-grade Dockerfile with multi-stage build running on Alpine Linux.
+## The Problem
 
----
+Students and fresh graduates often use separate tools for learning, planning,
+interview preparation, project development, and job searching.
 
-## 🏗️ Architecture Overview
+PathAI Coach explores a connected approach:
 
-```
-┌────────────────────────────────────────────────────────┐
-│            Android Client (Jetpack Compose)            │
-│  - Today Dashboard     - Multi-Agent Chat Panel        │
-│  - Roadmap Generator   - Live Job Radar                │
-│  - Mock Interviews     - Offline Fallback Support      │
-└───────────────────────────┬────────────────────────────┘
-                            │ HTTPS (Token-authenticated)
-                            ▼
-┌────────────────────────────────────────────────────────┐
-│             PathAI Backend (Cloud Run / Node)          │
-│  - /health              - /api/agent/chat              │
-│  - /api/jobs/search     - /api/roadmap/generate        │
-│  - 9:00 AM Cron Alerts  - Verifier Engine              │
-└───────────────┬────────────────────────┬───────────────┘
-                │                        │
-       Gemini / HuggingFace API      Firebase Firestore
-```
+Career goals → Skill gaps → Learning activities → Projects → Job opportunities
 
----
+The aim is to help learners understand what to work on next and how it connects
+to their career goals.
 
-## 📂 Project Structure
+## Features Explored
 
-```
-├── app/                                # Android Jetpack Compose project
-│   ├── src/main/java/com/example/
-│   │   ├── data/                       # Models, repositories, remote API client
-│   │   │   └── remote/BackendClient.kt # HTTPS backend client & fallback config
-│   │   ├── ui/
-│   │   │   ├── screens/                # 13 Compose screens (Today, Roadmap, Jobs, etc.)
-│   │   │   ├── components/             # Reusable UI widgets, cards, bars
-│   │   │   └── theme/                  # Material 3 typography, color schemes
-│   │   └── viewmodel/                  # ViewModels for reactive state management
-│   └── build.gradle.kts                # App Gradle config with Secrets Plugin
-├── server/                             # Cloud Run / Express backend microservice
-│   ├── llm/                            # Gemini & HuggingFace provider implementations
-│   ├── services/                       # Agent orchestrator, verifier, job scraper
-│   ├── tests/                          # Automated Node test suites (Mission 5)
-│   ├── Dockerfile                      # Production container spec
-│   ├── index.js                        # Express server entrypoint & routes
-│   └── package.json                    # Backend dependencies & test scripts
-├── .env.example                        # Reference environment configuration
-├── firestore.rules                     # Firebase Firestore security rules
-└── metadata.json                       # Project descriptor metadata
-```
+### Personalized Learning
 
----
+- Sequential learning paths for Python, AI/ML, LLM/RAG, and portfolio projects.
+- Modules with prerequisites, learning objectives, and progress tracking.
+- A Today screen for daily learning activities and task completion.
+- Module-aware tutor explanations and quizzes.
+- Quiz scores and learning progress stored per user.
 
-## 🚀 Getting Started
+### Specialized AI Agents
 
-### Prerequisites
-- **Android Studio Ladybug (or newer)** with Android SDK 35 support.
-- **Java 17 or Java 21** configured as JDK.
-- **Node.js v20+** and `npm` (for running or testing the backend locally).
+The project explores an orchestrator-based design with specialized roles:
 
----
+- Coach Agent: study planning, priorities, and learning-task recommendations.
+- Tutor Agent: concept explanations, examples, quizzes, and feedback.
+- Project Agent: project ideas, milestones, and portfolio guidance.
+- Research Agent: technology updates and learning-related research.
+- Career Agent: career guidance and coordination of job-related workflows.
+- Verifier Agent: validation of structured outputs and task constraints.
 
-### 1. Setting Up the Backend
+Agent screens and backend workflows are implemented at different stages of
+maturity. Some interactions may use explicitly labeled offline or template
+fallbacks when a live service is unavailable.
 
-1. Navigate to the `server/` directory:
-   ```bash
-   cd server
-   npm install
-   ```
+### Career Preparation
 
-2. Create a `.env` file inside `server/` (or copy from `.env.example`):
-   ```env
-   PORT=5000
-   FIREBASE_PROJECT_ID=pathai-coach
-   LLM_PROVIDER=gemini
-   GEMINI_MODEL=gemini-2.5-flash
-   GEMINI_API_KEY=your_gemini_api_key_here
-   ```
+- Education, skills, and job preferences in the user profile.
+- Job-discovery workflows focused on internships, fresher roles, and
+  apprenticeships.
+- Job filtering, matching explanations, and application tracking.
+- Interview-practice and resume-assistance workflows.
+- Notification interfaces and scheduled-alert experiments.
 
-3. Run the backend unit tests:
-   ```bash
-   npm test
-   ```
+Live job availability depends on configured data sources and backend access.
+Continuous monitoring and reliable notification delivery remain areas for
+further validation.
 
-4. Start the server locally:
-   ```bash
-   npm start
-   ```
-   Verify health status at:
-   ```bash
-   curl http://localhost:5000/health
-   ```
+### Firebase Integration
 
----
+- Firebase Authentication for user accounts.
+- Cloud Firestore for profiles, tasks, learning progress, and related data.
+- User-scoped data access and Firestore Security Rules.
+- Persistent progress across application sessions.
 
-### 2. Setting Up the Android App
+## Architecture
 
-1. In the project root, configure your local environment file `.env`:
-   ```properties
-   # For local emulator testing:
-   BACKEND_BASE_URL=http://10.0.2.2:5000
-   
-   # Or for deployed Cloud Run backend:
-   # BACKEND_BASE_URL=https://pathai-backend-xxxxx.asia-south1.run.app
-   ```
+The intended request flow for AI features is:
 
-2. Open the project in **Android Studio**.
-3. Sync Gradle and build the project:
-   ```bash
-   gradle assembleDebug
-   ```
-4. Run the app on an Android Emulator or physical device (API 26+).
-
----
-
-## ☁️ Cloud Run Deployment Guide
-
-To deploy the backend to **Google Cloud Run**:
-
-```bash
-gcloud run deploy pathai-backend \
-  --source server \
-  --project pathai-coach \
-  --region asia-south1 \
-  --allow-unauthenticated \
-  --set-env-vars FIREBASE_PROJECT_ID=pathai-coach,LLM_PROVIDER=gemini,GEMINI_MODEL=gemini-2.5-flash \
-  --set-secrets GEMINI_API_KEY=GEMINI_API_KEY:latest
+```text
+Android application
+        ↓
+Firebase Authentication ID token
+        ↓
+Node.js / Express backend
+        ↓
+Orchestrator and specialized agent workflows
+        ↓
+Model-provider abstraction
+        ↓
+Gemini or an optionally configured Hugging Face provider
 ```
 
-Once deployed, set the resulting service URL as `BACKEND_BASE_URL` in your app's configuration.
+Firestore supports persistent user data alongside these workflows.
 
----
+The backend is designed to verify Firebase ID tokens, derive the authenticated
+user identity, validate model responses, and keep model-provider credentials
+outside the Android application.
 
-## 🧪 Testing
+A provider abstraction was introduced to make model integration easier to
+change without rewriting the mobile client. Provider availability and output
+quality still require separate testing.
 
-- **Backend Test Suite**:
-  ```bash
-  cd server && npm test
-  ```
-  Runs 11 test cases covering token rejection, UID isolation, provider routing, verifier JSON validations, duplicate task checks, and `/health` availability.
+## Technology Stack
 
-- **Android Unit Tests**:
-  ```bash
-  gradle :app:testDebugUnitTest
-  ```
+| Area | Technologies |
+|------|--------------|
+| Android application | Kotlin, Jetpack Compose, Material 3 |
+| Authentication | Firebase Authentication |
+| Data storage | Cloud Firestore |
+| Backend | Node.js, Express |
+| Generative AI | Gemini, optional Hugging Face provider integration |
+| Deployment preparation | Docker, Google Cloud Run |
+| Development assistance | Google AI Studio |
 
----
+## What I Learned
 
-## 🔒 Security Best Practices
+### GenAI and Agent Design
 
-- **Zero Client-Side Secrets**: No Gemini API keys or service account credentials are built into the APK.
-- **Identity Isolation**: The backend uses Firebase Authentication tokens to verify identity; user IDs are extracted directly from the verified decoded token rather than trusting payload bodies.
-- **Resilient Fallback Mode**: If connectivity to the backend is interrupted during local development, the app's `allowOfflineFallback` mode maintains UI responsiveness with structured local fallbacks.
+- Defining specialized agent responsibilities.
+- Separating conversational responses from actions that change application state.
+- Passing relevant learner context into model requests.
+- Working with structured model outputs and validation.
+- Understanding how orchestration differs from simply displaying multiple
+  agent personas.
 
----
+### Full-Stack Integration
 
-## 📄 License
-This project is licensed under the Apache 2.0 License.
+- Connecting an Android application to Firebase and backend APIs.
+- Organizing user-specific profiles, tasks, and learning progress.
+- Understanding Firebase ID-token verification and UID-based access control.
+- Separating mobile configuration from server-side model credentials.
+
+### Evaluation and Reliability
+
+One of the most valuable lessons was auditing the difference between what the
+application appeared to do and what its implementation actually supported.
+
+The audit helped identify:
+
+- Template-generated tasks presented alongside AI features.
+- Backend endpoints that were not yet called by the Android client.
+- Direct client-to-model calls that needed migration.
+- Background scheduling code that was not proof of a deployed scheduler.
+- Fallback responses that needed clearer labeling.
+
+This helped me understand why generated code, passing tests, and a polished UI
+do not automatically establish a reliable end-to-end system.
+
+## Development Approach
+
+Google AI Studio supported an iterative, prompt-assisted development workflow.
+
+I used it to explore features, generate and refine code, review implementation
+summaries, and identify integration gaps through follow-up audits and testing.
+
+The project introduced me to vibe-coding workflows while reinforcing the
+importance of understanding the architecture, checking generated assumptions,
+and validating real application behavior.
+
+## Current Status and Limitations
+
+This project is currently paused as a learning and portfolio prototype.
+
+Implemented or explored areas include authentication, learning paths,
+progress tracking, agent interfaces, backend provider abstraction, and
+career-support workflows.
+
+Important limitations:
+
+- Seeded curriculum and practice content are included.
+- Some features can use offline or template fallbacks.
+- Backend deployment and end-to-end connectivity require verification.
+- Background automation and push-notification delivery are not claimed as
+  production-verified.
+- Job coverage, freshness, and eligibility depend on external sources.
+- Model responses and job recommendations may be incomplete or incorrect.
+- Security-related implementation choices require continued testing and review.
+
+## Future Improvements
+
+- Validate the complete Android-to-backend-to-model request flow.
+- Improve dynamic task generation and adaptive scheduling.
+- Deploy and test reliable background workflows.
+- Add verified push-notification delivery.
+- Strengthen job-source provenance, freshness checks, and deduplication.
+- Expand agent evaluations and failure reporting.
+- Improve accessibility and learner feedback.
+- Extend learning paths based on practical user testing.
+
+## Security and Configuration
+
+Real credentials are not included in documentation or example configuration.
+
+Model-provider tokens, Firebase Admin credentials, and other server secrets
+should remain outside the Android application and public repository.
+
+Firebase client configuration is separate from server-side credentials.
+Example files should contain placeholders rather than real configuration values.
+
+## Why I Built This
+
+PathAI Coach reflects my interest in Generative AI, agent-based systems, and
+building useful applications while learning.
+
+The project helped me move beyond prompting a model toward understanding the
+surrounding system: authentication, persistence, orchestration, validation,
+fallback behavior, deployment, and evaluation.
+
+It is a record of hands-on exploration and continuous improvement.
+
+## Disclaimer
+
+PathAI Coach is intended for learning and experimentation. It does not guarantee
+job eligibility, placement, assessment accuracy, or the correctness of
+AI-generated recommendations.
